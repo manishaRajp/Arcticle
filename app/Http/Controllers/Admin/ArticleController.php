@@ -58,7 +58,21 @@ class ArticleController extends Controller
     
     public function update(Request $request,$id)
     {
-        dd(5657);
+        $edit_art = Article::where('id', $request['id'])->get()->first();
+        if (isset($request['image'])) {
+        $image = uploadFile($request['image'], 'Food');
+        } else {
+        $image = $edit_art->getRawOriginal('image');
+        }
+        $edit_art->meal_id = $request['category_id'];
+        $edit_art->rest_id = $request['rest_id'];
+        $edit_art->meal_name = $request['name'];
+        $edit_art->sub_name = $request['sub_name'];
+        $edit_art->price = $request['price'];
+        $edit_art->quantity = $request['quantity'];
+        $edit_art->image = $image;
+        $edit_art->save();
+        return redirect()->route('admin.meal.index');
     }
 
   

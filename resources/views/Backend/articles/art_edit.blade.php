@@ -11,8 +11,9 @@
                         <br>
                         <h4 style="font-size:200%;" class="card-title">Edit Articlel</h4>
                     </div>
-                    <form class="forms-sample" method="post" action="{{ route('admin.article.update') }}" enctype="multipart/form-data">
+                    <form class="forms-sample" method="post" action="{{ route('admin.article.update',$art_edit->id) }}" enctype="multipart/form-data">
                         @csrf
+                        @method('put')
                         <input type="hidden" name="id" value="{{$art_edit->id}}">
                         <div class="form-group">
                             <label for="password" class="col-sm-3 col-form-label">Category</label>
@@ -43,7 +44,7 @@
                             <label for="sub_name">Description </label>
                             <input type="text" class="form-control" id="sub_name" name="sub_name" @error('sub_name') is-invalid @enderror placeholder="meal sub name" value="dfgvdxvgx">
                         </div>
-                        
+                    
                         <div class="form-group">
                             <img src="{{asset('storage/ArtivleImage/'.$art_edit['image'])}}" alt="image" width="50" height="50" />
                         </div>

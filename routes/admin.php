@@ -41,10 +41,7 @@ Route::resource('category',CategoryController::class);
 
 // Article and category 
 Route::resource('article',ArticleController::class);
-Route::get('/view-article/{id}', [ArticleController::class, 'show'])->name('view_article');
-Route::get('/edit-article/{id}', [ArticleController::class, 'edit'])->name('edit_article');
-Route::post('/update-article/{id}', [ArticleController::class, 'update'])->name('update_article');
-Route::get('/delete-article/{id}', [ArticleController::class, 'destroy'])->name('delete_article');
+
 
 
 // User display

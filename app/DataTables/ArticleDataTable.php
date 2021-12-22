@@ -23,13 +23,12 @@ class ArticleDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function ($data) {
                 return
-                    '<a href="view-article/' . $data->id . '" class="btn btn-outline-success"><i
+                    '<a href="' . route("admin.article.show", $data->id) . '"class="btn btn-outline-success"><i
                       class="icon-fixed-width icon-eye">View</i></a>
-              <a href="edit-article/' . $data->id . '" class="btn btn-outline-info"><i
+              <a href="' . route("admin.article.edit", $data->id) . '"class="btn btn-outline-info"><i
                       class="icon-fixed-width icon-pencil">Edit</i></a>
-              <a href="delete-article/' . $data->id . '" class="btn btn-outline-danger"><i
-                      class="icon-fixed-width icon-pencil">Delete</i></a>'
-              ;
+              <a href="' . route("admin.article.edit", $data->id) . '"class=" btn btn-outline-danger"><i
+                      class="icon-fixed-width icon-pencil">Delete</i></a>';
             })
             ->editColumn('image', function ($data) {
                 return '<img src="' . asset('storage/ArticleImage/' . $data->image) . '" class="img-thumbnail"
@@ -52,17 +51,14 @@ class ArticleDataTable extends DataTable
             ->rawColumns(['action', 'image', 'maincat_id', 'subcat_id'])
             ->addIndexColumn();
     }
-
-  
     public function query(Article $model)
     {
-    // join for fillter
-    $model = $model
-     ->join('article_categories','article_categories.id','=','articles.maincat_id')
-     ->join('article_sub_categories','article_sub_categories.id','=','articles.subcat_id')
-     ->select('articles.*','article_categories.name','article_sub_categories.sub_name')   
-    ->newQuery();
-    return $model->with(['maincat','subcat'])->newQuery();
+        $model = $model
+            ->join('article_categories', 'article_categories.id', '=', 'articles.maincat_id')
+            ->join('article_sub_categories', 'article_sub_categories.id', '=', 'articles.subcat_id')
+            ->select('articles.*', 'article_categories.name', 'article_sub_categories.sub_name')
+            ->newQuery();
+        return $model->with(['maincat', 'subcat'])->newQuery();
     }
     public function html()
     {

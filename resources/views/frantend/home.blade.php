@@ -13,7 +13,6 @@
         <div class="row">
             @if($art)
             @foreach($art as $key => $value)
-
             <div class="col-md-3">
                 <div class="blog-card blog-card-blog">
                     <div class="blog-card-image">
@@ -36,7 +35,6 @@
                             </div>
                             @if($like_user)
                             <a href="{{ route ('dislikes', $value->id) }}"><button class="btn1" style="color:red"><i class="fa fa-heart"></i></button></a>
-
                             @else
                             <a href="{{ route ('like', $value->id) }}" title=" {{ App\Models\Like::with('likes')->where('art_id', $value->id)->count() }}"> <button class="btn1"><i class="fa fa-hevalue"></i></button></a>
                             @endif

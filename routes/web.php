@@ -25,8 +25,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+Route::get('/done/{id}',[HomeController::class,'done']);
 
   // like and dislike procces
-  Route::get('like/{id}', [HomeController::class, 'like'])->name('like');
+  Route::get('/like/{id}', [HomeController::class, 'like'])->name('like');
   Route::get('dislikes/{id}', [HomeController::class, 'user_dislikes'])->name('dislikes');
