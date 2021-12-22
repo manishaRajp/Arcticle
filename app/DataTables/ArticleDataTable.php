@@ -45,6 +45,10 @@ class ArticleDataTable extends DataTable
                 $sql = "article_categories.name like ?";
                 $data->whereRaw($sql, ["%{$keyword}%"]);
             })
+            ->filterColumn('subcat_id', function ($data, $keyword) {
+                $sql = "article_sub_categories.sub_name like ?";
+                $data->whereRaw($sql, ["%{$keyword}%"]);
+            })
             ->rawColumns(['action', 'image', 'maincat_id', 'subcat_id'])
             ->addIndexColumn();
     }
@@ -76,8 +80,6 @@ class ArticleDataTable extends DataTable
                 Button::make('reload')
             );
     }
-
- 
     protected function getColumns()
     {
         return [
@@ -96,12 +98,6 @@ class ArticleDataTable extends DataTable
                 ->addClass('text-center'),
         ];
     }
-
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
     protected function filename()
     {
         return 'Article_' . date('YmdHis');

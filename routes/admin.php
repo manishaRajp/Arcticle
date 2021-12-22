@@ -5,8 +5,7 @@ use App\Http\Controllers\Admin\LoginAdminController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ArticleController;
-
-
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('foregtpassword', function () {
 return view('Backend.Admin.forget_email');
@@ -47,4 +46,7 @@ Route::get('/edit-article/{id}', [ArticleController::class, 'edit'])->name('edit
 Route::post('/update-article/{id}', [ArticleController::class, 'update'])->name('update_article');
 Route::get('/delete-article/{id}', [ArticleController::class, 'destroy'])->name('delete_article');
 
+
+// User display
+Route::resource('user',UserController::class);
 });

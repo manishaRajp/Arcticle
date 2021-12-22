@@ -7,7 +7,6 @@
     <div class="content-wrapper">
         <br>
         <br>
-        <a href="{{ ('admin.category.create') }}" class="btn btn-success float-right">Add Category</a>&nbsp;
         <div class="page-header">
             <h3 style="font-size:150%;" class="page-title">Tables </h3>
         </div>

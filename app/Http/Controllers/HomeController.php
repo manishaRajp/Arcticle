@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\Like;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $art = Article::all();
+        $like_user = Like::all();
+        return view('frantend.home', compact('art', 'like_user'));
+    }
+
+    public function like()
+    {
+        dd(2435);
+        $like = new Like();
+        $art = Article::all();
+        $user_Id = Auth::id();
+        $like->user_Id = $user_Id;
+        $like->status = 'Like';
+        $like->save();
+        return redirect()->back();
+    }
+    public function user_dislikes(Request $request)
+    {
+        $art = Article::find($request['id']);
+        $dislike = Like::where('user_id', Auth::user()->id)->where('art_id', $art->id)->first();
+        return redirect()->back();
     }
 }

@@ -29,13 +29,12 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ route('admin.article.index') }}" ><i class="fa fa-diamond purple_color"></i> <span>show article detail</span></a>
+                        <a href="{{ route('admin.article.index') }}" ><i class="fa fa-diamond purple_color"></i> <span>Article List</span></a>
                     </li>
                     <li>
-                        <a href="#apps"><i class="fa fa-object-group blue2_color"></i> <span>show User</span></a>
+                        <a href="{{ route('admin.user.index') }}"><i class="fa fa-object-group blue2_color"></i> <span>User List</span></a>
                     </li>
                     <li><a href="{{ route('admin.category.index') }}"><i class="fa fa-briefcase blue1_color"></i> <span>List of category </span></a></li>
-                    <li><a href="price.html"><i class="fa fa-briefcase blue1_color"></i> <span>Create article</span></a></li>
                 </ul>
             </div>
         </nav>

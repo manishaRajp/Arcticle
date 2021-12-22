@@ -9,7 +9,7 @@
                         <br>
                         <br>
                         <br>
-                        <h4 style="font-size:200%;" class="card-title">Edit Articlel </h4>
+                        <h4 style="font-size:200%;" class="card-title">Edit Articlel</h4>
                     </div>
                     <form class="forms-sample" method="post" action="{{ route('admin.article.update') }}" enctype="multipart/form-data">
                         @csrf

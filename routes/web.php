@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', [BlogController::class, 'index'])->name('wellcome');
+
 Route::get('/', function () {
-    return view('welcome');
+return view('frantend.welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+  // like and dislike procces
+  Route::get('like/{id}', [HomeController::class, 'like'])->name('like');
+  Route::get('dislikes/{id}', [HomeController::class, 'user_dislikes'])->name('dislikes');
