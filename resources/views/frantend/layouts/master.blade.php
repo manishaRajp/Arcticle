@@ -34,6 +34,7 @@
 
 <body id="page-top">
     @include('frantend.layouts.header')
+ @include('flash-message')
 
     @yield('content')
     <script type="text/javascript"></script>

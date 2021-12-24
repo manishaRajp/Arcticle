@@ -19,6 +19,15 @@ class ArticleController extends Controller
     return $dataTable->render('Backend.articles.art_table');
     }
 
+
+    public function getcate(Request $request)
+    {
+    // dd($request->all());
+    $user = ArticleCategory::where('maincat_id', $request->subcat_id)
+    ->get(['sub_name', 'id']);
+    return response()->json(['status' => true, 'data' => $user]);
+    }
+
     public function create()
     {
         $main_cat = ArticleCategory::all();
@@ -38,7 +47,6 @@ class ArticleController extends Controller
         $art_create->save();
        return redirect()->route('admin.article.index');
     }
-
    
     public function show($id)
     {
@@ -46,7 +54,6 @@ class ArticleController extends Controller
         return view('Backend.articles.art_show',compact('art'));
     }
 
-  
     public function edit($id)
     {
         $art_edit = Article::find($id);
@@ -55,31 +62,28 @@ class ArticleController extends Controller
         return view('Backend.articles.art_edit',compact('art_edit','maincat','subcat'));
     }
 
-    
     public function update(Request $request,$id)
     {
-        $edit_art = Article::where('id', $request['id'])->get()->first();
-        if (isset($request['image'])) {
-        $image = uploadFile($request['image'], 'Food');
+        $edit_art = Article::get()->first();
+        if (isset($request->image)) {
+        $image = uploadFile($request->image,'ArticleImage');
         } else {
         $image = $edit_art->getRawOriginal('image');
         }
-        $edit_art->meal_id = $request['category_id'];
-        $edit_art->rest_id = $request['rest_id'];
-        $edit_art->meal_name = $request['name'];
-        $edit_art->sub_name = $request['sub_name'];
-        $edit_art->price = $request['price'];
-        $edit_art->quantity = $request['quantity'];
+        $edit_art->maincat_id = $request->maincat_id;
+        $edit_art->subcat_id = $request->subcat_id;
+        $edit_art->title = $request->title;
+        $edit_art->description = $request->description;
         $edit_art->image = $image;
-        $edit_art->save();
-        return redirect()->route('admin.meal.index');
+        $edit_art->update();
+        return redirect()->route('admin.article.index');
     }
 
-  
-    public function destroy(Request $request)
+    public function destroy(Request $request ,$id)
     {
-        $delete = Article::where('id', $request->id)->delete();
-         return redirect()->route('admin.article.index');
-
+        $art_delete = Article::find($id);
+        $art_delete->delete();
+        $request->session()->flash('warning', 'Your Data Deleted successfully ');
+        return redirect()->route('admin.article.index');
     }
 }

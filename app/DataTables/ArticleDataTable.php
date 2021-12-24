@@ -27,8 +27,17 @@ class ArticleDataTable extends DataTable
                       class="icon-fixed-width icon-eye">View</i></a>
               <a href="' . route("admin.article.edit", $data->id) . '"class="btn btn-outline-info"><i
                       class="icon-fixed-width icon-pencil">Edit</i></a>
-              <a href="' . route("admin.article.edit", $data->id) . '"class=" btn btn-outline-danger"><i
-                      class="icon-fixed-width icon-pencil">Delete</i></a>';
+                   
+                      
+                      <form action="'.route("admin.article.destroy",$data->id).'" method="POST">
+                          '.csrf_field().'
+                          '.method_field("DELETE").'
+                          <button type="submit" class="btn-sm btn-outline-danger"
+                              onclick="return confirm(\'Are You Sure Want to Delete?\')"
+                              >Delete</a>
+                              </form>
+                      ';
+      
             })
             ->editColumn('image', function ($data) {
                 return '<img src="' . asset('storage/ArticleImage/' . $data->image) . '" class="img-thumbnail"

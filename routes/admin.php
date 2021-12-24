@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RechargeController;
+
+use App\Models\Rechager;
 
 Route::get('foregtpassword', function () {
 return view('Backend.Admin.forget_email');
@@ -41,9 +44,20 @@ Route::resource('category',CategoryController::class);
 
 // Article and category 
 Route::resource('article',ArticleController::class);
+Route::post('getcate',[ArticleController::class,'getcate'])->name('getcate');
 
 
 
 // User display
 Route::resource('user',UserController::class);
+
+
+// Recharge display
+Route::resource('recharge',RechargeController::class);
+Route::get('recharge-status',[RechargeController::class,'Rechargestatus'])->name('recharge-status');
+Route::get('mail-send',[RechargeController::class,'mail'])->name('mail_send');
+
+
+//  send mail touser 
+Route::get('send-email', [SendEmailController::class, 'index']);
 });

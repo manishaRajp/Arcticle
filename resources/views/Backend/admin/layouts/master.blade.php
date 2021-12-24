@@ -39,6 +39,8 @@
     
     @include('backend.admin.layouts.menubar')
     @include('backend.admin.layouts.header')
+     @include('flash-message')
+
 
     @yield('content')
     <!-- jQuery -->

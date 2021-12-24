@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="descrition">Description</label>
-                            <input type="text" name="descrition" id="descrition" value="{!!$art->description!!}" class="form-control"  readonly>
+                            <textarea class="ckeditor form-control form-control @error('description') is-invalid @enderror" name="description" id="description" readonly>{!!$art->description!!}</textarea>
                         </div>
                     </div>
                     <div class="row">

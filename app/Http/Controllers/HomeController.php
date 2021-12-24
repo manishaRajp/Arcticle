@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Like;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,9 +28,10 @@ class HomeController extends Controller
     public function index()
     {
 
+        $posts = Post::all();
         $art = Article::all();
         $like_user = Like::all();
-        return view('frantend.home', compact('art', 'like_user'));
+        return view('frantend.welcome', compact('art', 'like_user','posts'));
     }
 
     // public function like()

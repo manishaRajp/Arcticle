@@ -34,6 +34,10 @@
                     <li>
                         <a href="{{ route('admin.user.index') }}"><i class="fa fa-object-group blue2_color"></i> <span>User List</span></a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.recharge.index') }}"><i class="fa fa-object-group blue2_color"></i> <span> Recharage List </span></a>
+
+                    </li>
                     <li><a href="{{ route('admin.category.index') }}"><i class="fa fa-briefcase blue1_color"></i> <span>List of category </span></a></li>
                 </ul>
             </div>
