@@ -42,7 +42,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        dd(5434);
+        $subcat = ArticleSubCategory::where('maincat_id',$request->maincat_id)->get();
+        return $subcat;
     }
 
     /**

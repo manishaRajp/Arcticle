@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\frontend\ArticleController;
 use App\Http\Controllers\frontend\PostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RechagerController;
@@ -17,33 +18,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', [BlogController::class, 'index'])->name('wellcome');
 
 Route::get('/', function () {
-return view('frantend.home');
+    return view('frantend.home');
 });
 
 Auth::routes();
+Route::get('/welcome', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth:web'], function () {
-Route::get('/welcome', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/done/{id}',[HomeController::class,'done']);
+    //---------------------------------------Post--------------------------------- 
+    Route::resource('post', PostController::class);
 
- // like and dislike procces
-Route::get('/like/{id}', [HomeController::class, 'like'])->name('like');
-Route::get('dislikes/{id}', [HomeController::class, 'user_dislikes'])->name('dislikes');
+    //-------------------------------------Recharge--------------------------------
+    Route::resource('rechger', RechagerController::class);
 
+    // ------------------------------------Article Like and coment----------------
 
-
-
-// POST RECHAGE MODULE 
-
-Route::resource('post',PostController::class);
-
-
-// RECHARGER MODULE
-Route::resource('rechger',RechagerController::class);
-
-
+    Route::get('like/{id}', [ArticleController::class, 'like'])->name('like');
+    Route::get('dislikes/{id}', [ArticleController::class, 'dislikes'])->name('dislikes');
+    Route::Post('submit_comment/{id}', [ArticleController::class, 'comment'])->name('submit_comment');
 });

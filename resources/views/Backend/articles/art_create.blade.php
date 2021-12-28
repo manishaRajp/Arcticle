@@ -8,7 +8,7 @@
             <br>
             <h4 style="font-size:200%;" class="card-title">Add Article</h4>
             <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-            <form class="forms-sample myform" method="POST" action="{{route('admin.article.store')}}"  enctype="multipart/form-data">
+            <form class="forms-sample myform" method="POST" action="{{route('admin.article.store')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <label for="password" class="col-sm-3 col-form-label">Category</label>
@@ -17,69 +17,66 @@
                             <option value="">Select Main Category</option>
                             @foreach ($main_cat as $main_cat)
                             <option value="{{ $main_cat->id }}">{{$main_cat->name}}</option>
-                    @endforeach
-                    </select>
-                    @error('maincat_id')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                            @endforeach
+                        </select>
+                        @error('maincat_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                 </div>
+                <div class="form-group row">
+                    <label for="subcat_id" class="col-sm-3 col-form-label">Sub Category</label>
+                    <div class="col-md-6">
+                        <select class="form-control subcat_id @error('subcat_id') is-invalid @enderror" id="subcat_id" name="subcat_id">
+                            <option class="dropdown-item" value="0">select one subcategory</option>
+                        </select>
+                        @error('subcat_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Title</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" placeholder="title">
+                        @error('title')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <textarea class="ckeditor form-control @error('description') is-invalid @enderror" name="description" id="description" value="{{ old('description') }}">{{ old('description') }}</textarea>
+                        @error('description')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputPassword2" class="col-sm-3 col-form-label ">image</label>
+                    <div class="col-sm-9">
+                        <input type="file" id="image" name="image" value="{{ old('image') }}" class="form-control @error('image') is-invalid @enderror">
+                        @error('image')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button class="btn btn-light">Cancel</button>
+            </form>
         </div>
-        <div class="form-group row">
-            <label for="password" class="col-sm-3 col-form-label">Category</label>
-            <div class="col-md-6">
-                <select class="form-control subcat_id @error('subcat_id') is-invalid @enderror" id="subcat_id" name="subcat_id">
-                    <option value="0">Select Category</option>
-                    {{-- @foreach ($sub_cat as $cat)
-                    <option value="{{ $cat->id }}">{{$cat->sub_name}}</option>
-                    @endforeach --}}
-                </select>
-                @error('subcat_id')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Title</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" placeholder="title">
-                @error('title')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Description</label>
-            <div class="col-sm-9">
-                <textarea class="ckeditor form-control @error('description') is-invalid @enderror" name="description" id="description" value="{{ old('description') }}">{{ old('description') }}</textarea>
-                @error('description')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="exampleInputPassword2" class="col-sm-3 col-form-label ">image</label>
-            <div class="col-sm-9">
-                <input type="file" id="image" name="image" value="{{ old('image') }}" class="form-control @error('image') is-invalid @enderror">
-                @error('image')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary mr-2">Submit</button>
-        <button class="btn btn-light">Cancel</button>
-        </form>
     </div>
-</div>
 </div>
 @endsection
 @push('scripts')
@@ -92,32 +89,27 @@
     $(document).ready(function() {
         $('.ckeditor').ckeditor();
     });
-    $('.myform').on('change', '.maincat_id', function() {
 
-        $this = $(this);
-        subcat = $this.val();
-        alert(subcat);
-
+    $('#maincat_id').on('change', function() {
+        var maincat_id = this.value;
         $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            , }
-            , url: '{{route("admin.getcate")}}'
-            , type: 'post'
+            url: "{{ route('admin.category.store') }}"
+            , type: "post"
             , data: {
-                subcat: subcat
-            , }
-            , dataType: "JSON"
-            , success: function(data) {
-                console.log(data);
-                $this.parent().parent().find(".subcat_id").html('');
-                $this.parent().parent().find(".subcat_id").html('<option value="">Select subcat</option>');
-                $.each(data.data, function(key, value) {
-                    $this.parent().parent().find(".subcat_id").append('<option value="' + value.id + '">' + value.sub_name + '</option>');
+                maincat_id: maincat_id
+                , _token: '{{ csrf_token() }}'
+            }
+            , dataType: 'json'
+            , success: function(result) {
+                console.log(result);
+                $('#subcat_id').html('<option class="dropdown-item" value="">Select Sub Category</option>');
+                $.each(result, function(key, value) {
+                    $("#subcat_id").append('<option class="dropdown-item" value="' + value.id + '">' + value.sub_name + '</option>');
+
                 });
             }
         });
-    });
+    })
 
 </script>
 

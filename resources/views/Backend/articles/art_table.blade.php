@@ -15,7 +15,7 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 style="font-size:150%;" class="card-title">Category Table</h4>
+                        <h4 style="font-size:150%;" class="card-title">Article List </h4>
                         <section style="padding-top: 60px;">
                             <div class="container">
                                 <div class="row">

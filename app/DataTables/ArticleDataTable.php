@@ -5,18 +5,10 @@ namespace App\DataTables;
 use App\Models\Article;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class ArticleDataTable extends DataTable
 {
-    /**
-     * Build DataTable class.
-     *
-     * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
-     */
     public function dataTable($query)
     {
         return datatables()
@@ -25,19 +17,21 @@ class ArticleDataTable extends DataTable
                 return
                     '<a href="' . route("admin.article.show", $data->id) . '"class="btn btn-outline-success"><i
                       class="icon-fixed-width icon-eye">View</i></a>
-              <a href="' . route("admin.article.edit", $data->id) . '"class="btn btn-outline-info"><i
+                         <a href="' . route("admin.article.edit", $data->id) . '"class="btn btn-outline-info"><i
                       class="icon-fixed-width icon-pencil">Edit</i></a>
-                   
-                      
-                      <form action="'.route("admin.article.destroy",$data->id).'" method="POST">
-                          '.csrf_field().'
-                          '.method_field("DELETE").'
-                          <button type="submit" class="btn-sm btn-outline-danger"
+                        <form action="' . route("admin.article.destroy", $data->id) . '" method="POST">
+                          ' . csrf_field() . '
+                          ' . method_field("DELETE") . '
+                              <button type="submit" class="btn-sm btn-outline-danger"
                               onclick="return confirm(\'Are You Sure Want to Delete?\')"
-                              >Delete</a>
-                              </form>
-                      ';
-      
+                              >Delete
+                        </form>';
+            })
+            ->editColumn('like', function ($data) {
+                return $data->like_count->count();
+            })
+            ->editColumn('comment', function ($data) {
+                return $data->comment_count->count();
             })
             ->editColumn('image', function ($data) {
                 return '<img src="' . asset('storage/ArticleImage/' . $data->image) . '" class="img-thumbnail"
@@ -57,7 +51,7 @@ class ArticleDataTable extends DataTable
                 $sql = "article_sub_categories.sub_name like ?";
                 $data->whereRaw($sql, ["%{$keyword}%"]);
             })
-            ->rawColumns(['action', 'image', 'maincat_id', 'subcat_id'])
+            ->rawColumns(['action', 'image', 'maincat_id', 'subcat_id','like','comment'])
             ->addIndexColumn();
     }
     public function query(Article $model)
@@ -92,7 +86,6 @@ class ArticleDataTable extends DataTable
             Column::make('maincat_id')->title('Category'),
             Column::make('subcat_id')->title('Sub-Category'),
             Column::make('title')->title('Title of article'),
-            // Column::make('description'),
             Column::make('image')->title('Image Article'),
             Column::make('like'),
             Column::make('comment'),

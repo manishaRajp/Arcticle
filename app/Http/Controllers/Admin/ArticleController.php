@@ -20,13 +20,7 @@ class ArticleController extends Controller
     }
 
 
-    public function getcate(Request $request)
-    {
-    // dd($request->all());
-    $user = ArticleCategory::where('maincat_id', $request->subcat_id)
-    ->get(['sub_name', 'id']);
-    return response()->json(['status' => true, 'data' => $user]);
-    }
+    
 
     public function create()
     {
@@ -39,13 +33,13 @@ class ArticleController extends Controller
     {
         $images = uploadFile($request['image'], 'ArticleImage');
         $art_create = new Article;
-        $art_create->maincat_id = $request['subcat_id'];
+        $art_create->maincat_id = $request['maincat_id'];
         $art_create->subcat_id = $request['subcat_id'];
         $art_create->title = $request['title'];
         $art_create->description = $request['description'];
         $art_create->image = $images;
         $art_create->save();
-       return redirect()->route('admin.article.index');
+        return redirect()->route('admin.article.index');
     }
    
     public function show($id)
@@ -86,4 +80,6 @@ class ArticleController extends Controller
         $request->session()->flash('warning', 'Your Data Deleted successfully ');
         return redirect()->route('admin.article.index');
     }
+
+   
 }

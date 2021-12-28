@@ -19,17 +19,5 @@ class ArticleSubCategory extends Model
         return $this->hasOne(ArticleCategory::class, 'id', 'maincat_id');
     }
 
-    public function getParentsAttribute()
-    {
-        $parents = collect([]);
 
-        $parent = $this->parent;
-
-        while (!is_null($parent)) {
-            $parents->push($parent);
-            $parent = $parent->parent;
-        }
-
-        return $parents;
-    }
 }

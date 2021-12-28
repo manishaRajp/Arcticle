@@ -14,4 +14,9 @@ class Post extends Model
     return $this->hasOne(RechagerDetails::class, 'id', 'rech_id');
     }
 
+      public function User()
+      {
+      return $this->belongsTo(User::class, 'user_id', 'id');
+      }
+
 }

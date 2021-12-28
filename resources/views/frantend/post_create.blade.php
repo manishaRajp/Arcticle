@@ -51,7 +51,7 @@
                     </div>
                     <div>
                         <button type="submit" id="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a href="{{ route('home') }}">Go to Home </a>
+                        <a href="{{ route('post.index') }}">Go to Home </a>
                     </div>
                 </form>
             </div>

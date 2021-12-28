@@ -70,27 +70,15 @@ class RechargeController extends Controller
                 'message' => "Your Request has been Approved",
                 'status' => 'approve',
             ]);
-             $user = User::find(1)->toArray();
-             Mail::send('backend.userMail', $user, function ($message) use ($user) {
-             $message->to($user['email']);
-             $message->subject('Welcome Mail');
-             });
-             }
-         else {
+            $user = User::find(1)->toArray();
+            Mail::send('backend.userMail', $user, function ($message) use ($user) {
+                $message->to($user['email']);
+                $message->subject('Welcome Mail');
+            });
+        } else {
             $recharge->status = "1";
         }
         $recharge->save();
         return response()->json(['data' => $recharge]);
     }
-
-    public function mail()
-    {
-    $user = User::find(1)->toArray();
-    Mail::send('backend.userMail', $user, function ($message) use ($user) {
-    $message->to($user['email']);
-    $message->subject('Welcome Mail');
-    });
-    dd('Mail Send Successfully');
-    }
-
 }
