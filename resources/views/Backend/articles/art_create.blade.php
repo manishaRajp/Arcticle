@@ -1,5 +1,8 @@
 @extends('Backend.Admin.layouts.master')
 @section('content')
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 <div class="col-md-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
@@ -13,7 +16,7 @@
                 <div class="form-group row">
                     <label for="password" class="col-sm-3 col-form-label">Category</label>
                     <div class="col-md-6">
-                        <select class="form-control maincat_id @error('maincat_id') is-invalid @enderror" id="maincat_id" name="maincat_id">
+                        <select class="form-control category_select @error('maincat_id') is-invalid @enderror" id="maincat_id" name="maincat_id">
                             <option value="">Select Main Category</option>
                             @foreach ($main_cat as $main_cat)
                             <option value="{{ $main_cat->id }}">{{$main_cat->name}}</option>
@@ -78,13 +81,16 @@
         </div>
     </div>
 </div>
+
+
+
 @endsection
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-<script type="text/javascript"></script>
 <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script src="{{ asset('Admin/asset/js/select2.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('.ckeditor').ckeditor();
@@ -111,8 +117,9 @@
         });
     })
 
+    $(document).ready(function() {
+        $('.category_select').select2();
+    });
+
 </script>
-
-
-
 @endpush

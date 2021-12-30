@@ -1,9 +1,117 @@
 @extends('frantend.layouts.master')
 @section('content')
 <hr style="height:9px; border-width:5px; width: 10000px;  color:DarkOrange; background-color:DarkOrange">
+{{----------------------------------------model to send request and create post-------------}}
 <center>
-    <a href="{{ route('rechger.create') }}" class="btn-lg btn-success float-center">Send Request For Rechage</a>&nbsp;
+    {{-- Add Post --}}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Add Post
+    </button>
+    <form class="forms-sample" method="post" action="{{ route('post.store') }}" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="id" value="{{auth()->user()->id }}">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="" class="col-sm-5 col-form-label">Title</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" value="{{ old('title') }}" name="title" placeholder="Title">
+                                @error('title')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <textarea class=" form-control @error('body') is-invalid @enderror ckeditor" name="body" id="body">{{ old('body') }}</textarea>
+                            @error('body')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 col-form-label ">Image</label>
+                        <div class="col-sm-9">
+                            <input type="file" id="image" name="image" class="form-control @error('image') is-invalid @enderror">
+                            @error('image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {{-- Send Request --}}
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#requestModal">
+        Send Request
+    </button>
+    <form method="post" action="{{ route('sendrequest') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Send Request</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @if(Auth::user())
+                    <div class="mx-auto"><strong>Total points = </strong>
+                        <strong class="mx-10">{{ Auth::user()->points }}</strong>
+                    </div>
+                    @if(Auth::user()->points > 31)
+                    <label class="col-sm-3 col-form-label ">Enter point</label>
+                    <input id="points" type="text" class="form-control @error('points') is-invalid @enderror" name="points">
+                    @error('points')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                    <button type="submit" class="btn btn-primary">Request</button>
+                    @else
+                    <label>
+                        Go and get points
+                    </label>
+                    <input id="points" type="text" class="form-control @error('points') is-invalid @enderror" name="points" readonly placeholder="oppss********please eran points">
+
+                    @endif
+                    @endif
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </center>
+
+
+{{----------------------------------------------Post Display--------------------------------}}
+<hr style="height:9px; border-width:5px; width: 10000px;  color:DarkOrange; background-color:DarkOrange">
 <section class="page-section bg-light" id="team">
     <div class="text-center">
         <h2 class="section-heading text-uppercase" id="blogProfile">Posts</h2>
@@ -15,7 +123,7 @@
             @foreach($posts as $value)
             <div class="col-md-3">
                 <div class="blog-card blog-card-blog">
-                    <div class="blog-card-image">
+                    <div class="">
                         <img src="{{asset('storage/PostImage/'.$value['image'])}}" class="img-responsive" alt="image post">
                         <div class="ripple-cont"></div>
                     </div>
@@ -42,6 +150,8 @@
         </div>
     </div>
 </section>
+
+{{----------------------------------------------Article Display-----------------------------}}
 <hr style="height:9px; border-width:5px; width: 10000px;  color:DarkOrange; background-color:DarkOrange">
 <section class="page-section bg-light" id="team">
     <div class="text-center">
@@ -54,7 +164,7 @@
             @foreach($art as $value)
             <div class="col-md-3">
                 <div class="blog-card blog-card-blog">
-                    <div class="blog-card-image">
+                    <div class="">
                         <img src="{{asset('storage/ArticleImage/'.$value['image'])}}" class="img-responsive" alt="image post">
                         <div class="ripple-cont"></div>
                     </div>
@@ -106,4 +216,5 @@
         </div>
     </div>
 </section>
+
 @endsection

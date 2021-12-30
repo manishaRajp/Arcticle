@@ -19,7 +19,7 @@ class CreateRechargeTable extends Migration
              $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
              $table->unsignedBigInteger('user_id')->comment('User name');
              $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-              $table->string('points')->default(0);
+             $table->string('points')->default(0);
              $table->enum('status', ['0', '1'])->default(1)->comment('0 =Approve, 1=pending');
             $table->timestamps();
         });

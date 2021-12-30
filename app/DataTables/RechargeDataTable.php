@@ -69,7 +69,7 @@ class RechargeDataTable extends DataTable
     {
         return [
             
-            Column::make('id'),
+            Column::make('id')->data('DT_RowIndex'),
             Column::make('user_id'),
             Column::make('post_id'),
             Column::make('status'),

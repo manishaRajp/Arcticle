@@ -30,10 +30,9 @@
     <link rel="stylesheet" href="{{ asset('Admin/asset/css/perfect-scrollbar.css') }}" />
     <!-- custom css -->
     <link rel="stylesheet" href="{{ asset('Admin/asset/css/custom.css') }}" />
-   {{-- data table --}}
-   
-
+   {{-- select2 --}}
     @stack('css')
+
 </head>
 <body class="dashboard dashboard_1">
     
@@ -67,9 +66,9 @@
     <script src="{{ asset('Admin/asset/js/custom.js') }}"></script>
     <script src="{{ asset('Admin/asset/js/chart_custom_style1.js') }}"></script>
 
-    {{-- datatable --}}
-
+    {{-- select 2 --}}
+    
+     @stack('scripts')
 </body>
-@stack('scripts')
 @include('backend.admin.layouts.footer')
 </html>

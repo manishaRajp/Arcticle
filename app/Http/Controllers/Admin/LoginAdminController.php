@@ -22,7 +22,7 @@ class LoginAdminController extends Controller
     {
         return view('Backend.Admin.login');
     }
-    
+
     protected function attemptLogin(Request $request)
     {
         return $this->guard('admin')->attempt(
@@ -41,5 +41,4 @@ class LoginAdminController extends Controller
     {
         return Auth::guard('admin');
     }
-
 }

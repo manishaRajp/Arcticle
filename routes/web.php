@@ -24,15 +24,16 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/welcome', [HomeController::class, 'index'])->name('home');
+Route::get('/post', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth:web'], function () {
 
     //---------------------------------------Post--------------------------------- 
     Route::resource('post', PostController::class);
+    Route::post('request-send', [PostController::class,'sendrequest'])->name('sendrequest');
 
-    //-------------------------------------Recharge--------------------------------
-    Route::resource('rechger', RechagerController::class);
+
+
 
     // ------------------------------------Article Like and coment----------------
 

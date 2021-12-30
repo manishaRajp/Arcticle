@@ -6,7 +6,7 @@
 </header>
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="{{route('post.index')}}"><img src='' alt="..." /></a>
+        <a class="navbar-brand" href="{{route('post.index')}}"><img src='{{ asset('frontend\assest\img\navbar-logo.svg') }}' alt="..." /></a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                 @if(auth()->user())
@@ -17,7 +17,7 @@
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a href="{{route('post.create')}}" class=" dropdown-item input1">Create Blog &#x270D;</a>
+                        {{-- <a href="{{route('post.create')}}" class=" dropdown-item input1">Create Post &#x270D;</a> --}}
                         <a class="dropdown-item input1" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf

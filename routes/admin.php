@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RechargeController;
+use App\Http\Controllers\Admin\Select;
 
 // ------------------------------Admin ForgetPassword--------------------------
 Route::get('foregtpassword', function () {

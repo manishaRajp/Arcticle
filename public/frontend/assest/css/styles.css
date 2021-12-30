@@ -2970,7 +2970,7 @@ textarea.form-control-lg {
   width: 100%;
   margin-top: 0.25rem;
   font-size: 0.875em;
-  color: #dc3545;
+  color: #ce2031;
 }
 
 .invalid-tooltip {
@@ -12062,13 +12062,13 @@ section#contact form#contactForm :-ms-input-placeholder {
         position: relative;
         display: block;
     }
-
-    .cardbox .cardbox-item img {}
+.cardbox .cardbox-item img {}
+    
 
     .img-responsive {
         display: block;
-        max-width: 100%;
-        height: auto;
+        max-width: 50%;
+       height: fit-content;
     }
 
     .fw {
@@ -13014,3 +13014,6 @@ background-color: yellow;
 
 /* nevbar for blogg */
 
+ .error {
+   color: red;
+ }

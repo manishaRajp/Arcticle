@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -21,7 +22,21 @@ class UserDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'user.action');
+            ->editColumn('status', function ($data) {
+                if ($data->status == '1') {
+                    return '<a data-id="' . $data->id . '" id="status" class="btn-sm btn btn-outline-danger">Deactive</a>';
+                } else {
+                    return '<a data-id="' . $data->id . '" id="status" class="btn-sm btn btn-outline-success">Active</a>';
+                }
+            })
+            ->editColumn('created_at', function ($user) {
+                return $user->created_at ? with(new Carbon($user->created_at))->format('l jS \of F Y') : '';
+            })
+            ->editColumn('updated_at', function ($user) {
+                return $user->created_at ? with(new Carbon($user->created_at))->format('d/m/Y H:i:s') : '';
+            })
+            ->rawColumns(['status', 'created_at', 'updated_at'])
+            ->addIndexColumn();
     }
 
     /**
@@ -65,15 +80,13 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
+            Column::make('id')->data('DT_RowIndex'),
             Column::make('name'),
             Column::make('email'),
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-         
+            Column::make('status'),
+            Column::make('created_at'),
+            Column::make('updated_at'),
+
         ];
     }
 

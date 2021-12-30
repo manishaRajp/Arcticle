@@ -6,7 +6,6 @@
     <div class="content-wrapper">
         <br>
         <br>
-        <a href="#" class="btn btn-success float-right">Add Article</a>&nbsp;
         <div class="page-header">
             <h3 style="font-size:150%;" class="page-title">Tables </h3>
         </div>
@@ -35,6 +34,50 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {!! $dataTable->scripts() !!}
+<script>
+    $(document).on('click', '#status', function() {
+        var id = $(this).data('id');
+        swal({
+            title: "Are you sure?"
+            , text: "you want to Change Status"
+            , showCancelButton: true
+            , confirmButtonColor: '#3085d6'
+            , cancelButtonColor: '#d33'
+            , confirmButtonText: 'Yes, Save!'
+            , cancelButtonText: "No, cancel plx!"
+            , reverseButtons: true
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: "{{route('admin.user.create')}}"
+                    , type: "get"
+                    , data: {
+                        id: id
+                    , }
+                    , dataType: "json"
+                    , success: function(data) {
+                        if (data) {
+                            swal("Updated!"
+                                , "Status Change Successfully."
+                                , "success");
+                            window.LaravelDataTables["user-table"].draw();
+
+                        }
+                    }
+                });
+            } else {
+                swal("Cancelled", "Your Status is safe :)", "error");
+            }
+        });
+    });
+
+</script>
+
+
 @endpush
 

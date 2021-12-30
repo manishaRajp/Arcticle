@@ -1,1 +1,1 @@
-Hi {{ $name }}, How are you ?.
+Hi {{ $name }}, Your Recharge Request is Accepted ?.

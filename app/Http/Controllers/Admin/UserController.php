@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\UserDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -23,9 +24,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+       
+        $id = $request['id'];
+        $user_status = User::find($id);
+        if ($user_status->status == "1") {
+            $user_status->status = "0";
+        } else {
+            $user_status->status = "1";
+        }
+        $user_status->save();
+        return response()->json(['data' => $user_status]);
+     
+     
+ 
+  
     }
 
     /**
